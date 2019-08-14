@@ -1,7 +1,9 @@
 package org.yczbj.ycvideoplayer.ui.video.view.fragment;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 
@@ -26,19 +28,17 @@ public class VideoArticleFragment extends BaseList1Fragment<IVideoArticle.Presen
 
     public static VideoArticleFragment newInstance(String categoryId) {
         Bundle bundle = new Bundle();
-        bundle.putString(TAG, categoryId);
+        bundle.putString(TAG,categoryId);
         VideoArticleFragment videoArticleView = new VideoArticleFragment();
         videoArticleView.setArguments(bundle);
         return videoArticleView;
     }
 
     @Override
-    protected void initData() {
-        categoryId = getArguments().getString(TAG);
-    }
+    protected void initData() { categoryId = getArguments().getString(TAG);}
 
     @Override
-    protected void initView(View view) {
+    protected  void initView(View view) {
         super.initView(view);
         adapter = new MultiTypeAdapter(oldItems);
         Register.registerVideoArticleItem(adapter);
@@ -46,7 +46,7 @@ public class VideoArticleFragment extends BaseList1Fragment<IVideoArticle.Presen
         recyclerView.addOnScrollListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore() {
-                if (canLoadMore) {
+                if(canLoadMore) {
                     canLoadMore = false;
                     presenter.doLoadMoreData();
                 }

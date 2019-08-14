@@ -10,11 +10,13 @@ import org.yczbj.ycvideoplayer.R;
 import org.yczbj.ycvideoplayer.base.BasePagerAdapter;
 import org.yczbj.ycvideoplayer.base.mvp1.BaseFragment;
 import org.yczbj.ycvideoplayer.base.mvp2.BaseList1Fragment;
+import org.yczbj.ycvideoplayer.ui.test.test2.model.Video;
 import org.yczbj.ycvideoplayer.ui.video.view.fragment.VideoArticleFragment;
 import org.yczbj.ycvideoplayer.util.SettingUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import butterknife.BindView;
 
@@ -69,10 +71,9 @@ public class VideoFragment extends BaseFragment {
             fragmentList.add(fragment);
             title.add(categoryName[i]);
         }
-        adapter = new BasePagerAdapter(getChildFragmentManager(), fragmentList,title);
+        adapter = new BasePagerAdapter(getChildFragmentManager(),fragmentList,title);
         viewPager.setAdapter(adapter);
     }
-
 
     public void onDoubleClick() {
         if (fragmentList != null && fragmentList.size() > 0) {

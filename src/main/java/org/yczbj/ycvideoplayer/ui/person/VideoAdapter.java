@@ -1,6 +1,7 @@
 package org.yczbj.ycvideoplayer.ui.person;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,14 +21,16 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     private Context mContext;
     private List<Video> mVideoList;
 
-    public VideoAdapter(Context context, List<Video> videoList) {
+    public VideoAdapter(Context context,List<Video> videoList) {
         mContext = context;
         mVideoList = videoList;
     }
 
+    @NonNull
     @Override
-    public VideoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_test_my_video, parent, false);
+    public VideoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View itemView = LayoutInflater.from(mContext).inflate(R.layout.item_test_my_video,
+                parent,false);
         VideoViewHolder holder = new VideoViewHolder(itemView);
         //创建视频播放控制器，主要只要创建一次就可以呢
         VideoPlayerController controller = new VideoPlayerController(mContext);
@@ -36,30 +39,28 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
     }
 
     @Override
-    public void onBindViewHolder(VideoViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull VideoViewHolder holder, int position) {
         Video video = mVideoList.get(position);
         holder.bindData(video);
     }
 
     @Override
     public int getItemCount() {
-        return mVideoList==null ? 0 : mVideoList.size();
+        return mVideoList == null ? 0:mVideoList.size();
     }
 
     public class VideoViewHolder extends RecyclerView.ViewHolder {
-
         public VideoPlayerController mController;
         public VideoPlayer mVideoPlayer;
-
         VideoViewHolder(View itemView) {
             super(itemView);
             mVideoPlayer = (VideoPlayer) itemView.findViewById(R.id.nice_video_player);
-            // 将列表中的每个视频设置为默认16:9的比例
+            //将列表中每个视频设置为默认16:9的比例
             ViewGroup.LayoutParams params = mVideoPlayer.getLayoutParams();
             // 宽度为屏幕宽度
             params.width = itemView.getResources().getDisplayMetrics().widthPixels;
             // 高度为宽度的9/16
-            params.height = (int) (params.width * 9f / 16f);
+            params.height = (int) (params.width*9.0f/16.0f);
             mVideoPlayer.setLayoutParams(params);
         }
 
@@ -75,11 +76,11 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.VideoViewHol
 
         void bindData(Video video) {
             mController.setTitle(video.getTitle());
-            //mController.setLength(video.getLength());
-            ImageUtil.loadImgByPicasso(itemView.getContext(),video.getImageUrl(),R.drawable.image_default,mController.imageView());
-            mVideoPlayer.setUp(video.getVideoUrl(), null);
+            ImageUtil.loadImgByPicasso(itemView.getContext(),video.getImageUrl(),
+                    R.drawable.image_default,mController.imageView());
+            mVideoPlayer.setUp(video.getVideoUrl(),null);
         }
     }
 
-
 }
+
